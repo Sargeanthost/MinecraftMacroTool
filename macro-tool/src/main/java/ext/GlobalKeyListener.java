@@ -15,13 +15,13 @@ public class GlobalKeyListener implements NativeKeyListener {
     public void nativeKeyPressed(NativeKeyEvent e) {
         //System.out.println("Key Pressed: " + NativeKeyEvent.getKeyText(e.getKeyCode()));
 
-        if (e.getKeyCode() == NativeKeyEvent.VC_F10) {
+        if (e.getKeyCode() == NativeKeyEvent.VC_N) {
             Macro.closeMacros();
         }
-        if (e.getKeyCode() == NativeKeyEvent.VC_F9) {
+        if (e.getKeyCode() == NativeKeyEvent.VC_B) {
             new Macro(Macro.prevMacro);
         }
-        if (e.getKeyCode() == NativeKeyEvent.VC_F12) {
+        if (e.getKeyCode() == NativeKeyEvent.VC_M) {
             Config.readConfig();
         }
     }

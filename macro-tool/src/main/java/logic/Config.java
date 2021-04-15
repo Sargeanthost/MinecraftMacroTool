@@ -152,15 +152,18 @@ public class Config {
         keyCodesHash.put(0xD3, 0x7F);
         keyCodesHash.put(0xDA, 0x0C);
         keyCodesHash.put(0xDB, 0x020C);
-        keyCodesHash.put(-98, MouseEvent.BUTTON2_DOWN_MASK);
-        keyCodesHash.put(-99, MouseEvent.BUTTON3_DOWN_MASK);
-        keyCodesHash.put(-100, MouseEvent.BUTTON1_DOWN_MASK);
+        keyCodesHash.put(-0x60, MouseEvent.getMaskForButton(5));
+        keyCodesHash.put(-0x61, MouseEvent.getMaskForButton(4));
+        keyCodesHash.put(-0x62, MouseEvent.BUTTON2_DOWN_MASK);
+        keyCodesHash.put(-0x63, MouseEvent.BUTTON3_DOWN_MASK);
+        keyCodesHash.put(-0x64, MouseEvent.BUTTON1_DOWN_MASK);
     }
-
 
     public static void readConfig() {
         try {
+            //config file
             BufferedReader in = new BufferedReader(new FileReader(Macro.WORKING_DIR + "config.txt"));
+            //dumps info line
             in.readLine();
             String dir = in.readLine();
             in.readLine();
@@ -172,6 +175,7 @@ public class Config {
             }
             in.close();
 
+            //minecraft file
             String optPath = dir.substring(dir.indexOf(':') + 1) + File.separator + "\\options.txt";
             in = new BufferedReader(new FileReader(optPath));
             while (in.ready()) {
@@ -231,8 +235,9 @@ public class Config {
                     }
                 }
             }
-
+            // mouse, comment this out?
             if (mouseSensitivityPercent != -1) {
+                //why make an object
                 Helper helper = new Helper();
                 mouseSensitivity = helper.convertMouseSensitivity(mouseSensitivityPercent);
             }
@@ -240,7 +245,7 @@ public class Config {
             Macro.currentXPixels = Main.calcYaw();
 
         } catch (FileNotFoundException e) {
-            CommandHelper.printError(
+            System.out.println(
                     "The config file could not be found in the directory. Default state will be applied.");
         } catch (IOException e) {
             e.printStackTrace();
