@@ -6,7 +6,7 @@
 
     <groupId>kideneb</groupId>
     <artifactId>macro-tool</artifactId>
-    <version>0.1.2</version>
+    <version>0.1.3</version>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -20,11 +20,12 @@
             <artifactId>jnativehook</artifactId>
             <version>2.1.0</version>
         </dependency>
+
     </dependencies>
 
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
-        <testSourceDirectory>src/test/java</testSourceDirectory>
+<!--        <testSourceDirectory>src/test/java</testSourceDirectory>-->
 
         <plugins>
             <plugin>
