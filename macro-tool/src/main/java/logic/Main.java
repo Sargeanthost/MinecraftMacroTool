@@ -43,7 +43,7 @@ public abstract class Main {
         GlobalKeyListener.start();
 
         ArrayList<Macro> mac = new ArrayList<>();
-        Config.readConfig();
+        Config.readOptions();
 
         millis = System.currentTimeMillis();
         millis = millis - millis % 50;
@@ -64,7 +64,8 @@ public abstract class Main {
                 Macro.currentMacros.removeIf((Macro m) -> {
                     try {
                         return !m.userInput.ready();
-                    } catch (IOException e2) {
+                    } catch (IOException | NullPointerException e2) {
+                        //weiiiiiiird, maybe remove nullpointerexception
                         System.out.println("main 48");
                         e2.printStackTrace();
                     }
@@ -86,12 +87,9 @@ public abstract class Main {
 
             sleepTillTick();
 
-
             millis += 50;
-
         }
     }
-
 
     public static void outputStuff(Robot robot) {
         for (int i = 0; i < 9; i++) {
@@ -114,13 +112,14 @@ public abstract class Main {
             }
         }
 
+        //TODO restart math part with original, no turns are working now.
         if (Macro.currentXRotation != Macro.xRotation) {
             Point p = MouseInfo.getPointerInfo().getLocation();
             int x = p.x;
             int y = p.y;
 
             int fullX = calcYaw();
-
+//          now x                start x ? should be 0 the first time, try setting 45
             int deltaX = fullX - Macro.currentXPixels;
             Macro.currentXPixels = fullX;
             //System.out.println(logic.Macro.currentXPixels);
@@ -137,31 +136,31 @@ public abstract class Main {
 
             int fullY = calcPitch();
 
-            int deltaY = fullY - Macro.currentXPixels;
-            Macro.currentXPixels = fullY;
+            int deltaY = fullY - Macro.currentYPixels;
+            Macro.currentYPixels = fullY;
             //System.out.println(logic.Macro.currentXPixels);
             //System.out.println(fullX);
             //System.out.println(deltaX);
 
             robot.mouseMove(x, y + deltaY);
-            Macro.currentXRotation = Macro.xRotation;
+            Macro.currentYRotation = Macro.yRotation;
         }
 
     }
 
     static int calcYaw() {
         //calcfullx
-//		float num;
-//		num = Macro.xRotation;
-//		num = (float) ((double)num / 0.15);
-//
-//		float f = (float) (Config.mouseSensitivity * .6F + .2F);
-//		float f1 = f * f * f * 8.0F;
-//		return (int) (num / f);
+		float num;
+		num = Macro.xRotation;
+		num = (float) ((double)num / 0.15);
 
-        return (int) ((45 * Math.pow(Config.mouseSensitivity * 0.6F + 0.2F, 3) * 8.0F) * 0.15D);
+        float f = (float) (Config.mouseSensitivity * 0.6F + 0.2F);
+        float f1 = f * f * f * 8.0F;
+
+        return (int) (num / f1);
+
+//        return (int) ((45 * Math.pow(Config.mouseSensitivity * 0.6F + 0.2F, 3) * 8.0F) * 0.15D);
 // Macro.xRotation
-//		float f = (float) Math.pow(Config.mouseSensitivity * 0.6F + 0.2F, 3) * 8.0F;
 
 
     }
