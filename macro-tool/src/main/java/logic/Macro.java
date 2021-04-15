@@ -108,6 +108,8 @@ public class Macro {
             e.printStackTrace();
         } catch (NullPointerException e1){
             System.out.println("Null file");
+            currentMacros.remove(this);
+            allOutputsClosed = true;
         }
     }
 
