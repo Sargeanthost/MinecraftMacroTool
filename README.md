@@ -7,7 +7,7 @@ Since this can be considered cheating, the author advises to use the tool only f
 
 # How to start the tool:
 
-1. Compile from source by using `mvn package` or a built-in maven plugin to compile. Make sure you're in the folder with the `pom.xml` in it.
+1. For an up-to-date package, compile from source by using `mvn package` or a built-in maven plugin. Make sure you're in the folder with the `pom.xml` file in it.
 2. Configure Config.txt from the old release under [releases](https://github.com/Kideneb/MinecraftMacroTool/releases).
 3. Make sure the jar and Config file are in the directory.
 4. Run the jar; A console should pop up with basic information (getting an error currently, still works though).
