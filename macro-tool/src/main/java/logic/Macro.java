@@ -47,28 +47,31 @@ public class Macro {
         try {
             this.userInput = new BufferedReader(new FileReader(WORKING_DIR + this.getFile()));
         } catch (FileNotFoundException e1) {
-            CommandHelper.printError("The file \" " + this.file + " could not be found.");
-            currentMacros.remove(this);
-            allOutputsClosed = true;
+            if (!(this.file.equals("null.txt") || this.file.equals(".txt"))) {
+                CommandHelper.printError("The file: " + this.file + " could not be found.");
+                CommandHelper.printError("Make sure " + this.file + " is in: " + System.getProperty("user.dir"));
+                currentMacros.remove(this);
+                allOutputsClosed = true;
+            }//TODO handle "start ", currently only handles wrong name or "start" only
         }
 
         try {
             this.userInput.readLine();
         } catch (IOException e) {
-            CommandHelper.printError("The file \" " + this.file + " could not be read.");
+            e.printStackTrace();
         } catch (NullPointerException e1) {
-            e1.printStackTrace();
+            CommandHelper.printWarning("No loaded macro. Make sure you read the command help");
         }
 
     }
 
     public void readLine() {
-        System.out.println(this.file);
+//        System.out.println("Executing: " + this.file); in keylistener
         this.line++;
         try {
             String[] lineSplit = this.userInput.readLine().split("\t");
             if (lineSplit.length > 0) {
-                System.out.println(this.userInput.readLine());
+//                System.out.println(this.userInput.readLine());
                 if (!lineSplit[0].equals("")) {
                     String[] newMacros = lineSplit[0].split("/");
                     for (String string : newMacros) {
@@ -103,6 +106,8 @@ public class Macro {
         } catch (IOException e) {
             System.out.println("Mystery error");
             e.printStackTrace();
+        } catch (NullPointerException e1){
+            System.out.println("Null file");
         }
     }
 

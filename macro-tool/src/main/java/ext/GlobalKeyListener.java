@@ -13,16 +13,19 @@ import org.jnativehook.keyboard.NativeKeyListener;
 
 public class GlobalKeyListener implements NativeKeyListener {
     public void nativeKeyPressed(NativeKeyEvent e) {
+        //throws NullPointerException
         //System.out.println("Key Pressed: " + NativeKeyEvent.getKeyText(e.getKeyCode()));
+        //add keybind config
 
-        if (e.getKeyCode() == NativeKeyEvent.VC_N) {
+        if (e.getKeyCode() == NativeKeyEvent.VC_F10) {
             Macro.closeMacros();
         }
-        if (e.getKeyCode() == NativeKeyEvent.VC_B) {
+        if (e.getKeyCode() == NativeKeyEvent.VC_F9) {
+            System.out.println("Executing: " + Macro.prevMacro);
             new Macro(Macro.prevMacro);
         }
-        if (e.getKeyCode() == NativeKeyEvent.VC_M) {
-            Config.readConfig();
+        if (e.getKeyCode() == NativeKeyEvent.VC_F8) {
+            Config.readOptions();
         }
     }
 

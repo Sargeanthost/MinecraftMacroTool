@@ -63,6 +63,7 @@ public class JConsole extends JFrame {
         textArea.setFont(new Font("Consolas", Font.PLAIN, 14));
         textArea.setEditable(false);
         textArea.setBackground(Color.BLACK);
+        textArea.setFocusable(false);
 
         textField = new JTextField();
         textField.addKeyListener(new KeyAdapter() {
@@ -84,6 +85,9 @@ public class JConsole extends JFrame {
         contentPane.add(textField, gbc_textField);
         TextAreaOutputStream textOutput = new TextAreaOutputStream(textArea);
         PrintStream ps = new PrintStream(textOutput);
+        textField.requestFocusInWindow();
+        textField.getCaret().setVisible(true);
+        textField.setCaretColor(Color.WHITE);
         System.setOut(ps);
         System.setErr(ps);
 

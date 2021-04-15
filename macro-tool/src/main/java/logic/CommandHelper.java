@@ -9,7 +9,7 @@ public class CommandHelper {
     public void listen() {
         if (!input.equals("")) {
             String line = input;
-            System.out.println(line);
+//            System.out.println(line); <maybe not
             input = "";
             String command;
             boolean singleWordCommand;

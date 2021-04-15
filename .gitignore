@@ -32,3 +32,6 @@ macro-tool/target/
 dependency-reduced-pom.xml
 
 /macros
+
+#Macros
+/hh_timing.txt

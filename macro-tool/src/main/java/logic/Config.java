@@ -159,9 +159,9 @@ public class Config {
         keyCodesHash.put(-0x64, MouseEvent.BUTTON1_DOWN_MASK);
     }
 
-    public static void readConfig() {
+    public static void readOptions() {
         try {
-            //minecraft file
+            //options.txt
             FileReader optPath = new FileReader(System.getProperty("user.home") + "\\Appdata\\Roaming\\" +
                     ".minecraft\\options.txt");
 
@@ -223,19 +223,20 @@ public class Config {
                     }
                 }
             }
-            // mouse, comment this out?
+            // TODO whats this for? Are we using the percent number or the percent decimal
             if (mouseSensitivityPercent != -1) {
                 //why make an object
                 Helper helper = new Helper();
                 mouseSensitivity = helper.convertMouseSensitivity(mouseSensitivityPercent);
             }
             System.out.println("Mouse sensitivity: " + mouseSensitivity);
+            //setpointpix(45) - current pixels= 45 degree turn
             Macro.currentXPixels = Main.calcYaw();
 
         } catch (FileNotFoundException e) {
             System.out.println(
                     "The options.txt file could not be found in the Roaming directory.");
-            //add sleep
+            //close because useless without this.
             Main.console.closeFrame(2000);
 
         } catch (IOException e) {
