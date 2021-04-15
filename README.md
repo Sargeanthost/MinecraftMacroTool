@@ -7,10 +7,10 @@ Since this can be considered cheating, the author advises to use the tool only f
 
 # How to start the tool:
 
-1. Download the tool from [releases](https://github.com/Kideneb/MinecraftMacroTool/releases).
-2. Configure Config.txt
+1. Compile from source by using `mvn package` or a built-in maven plugin to compile. Make sure you're in the folder with the `pom.xml` in it.
+2. Configure Config.txt from the old release under [releases](https://github.com/Kideneb/MinecraftMacroTool/releases).
 3. Make sure the jar and Config file are in the directory.
-4. Run the jar; A console should pop up with two numbers.
+4. Run the jar; A console should pop up with basic information (getting an error currently, still works though).
 	If this does not work make sure, you have java installed correctly.
 5. Now you can input commands. A list of commands can be found below.
    
@@ -21,7 +21,7 @@ Since this can be considered cheating, the author advises to use the tool only f
 	You can simply choose any text editor but using either Microsoft Office's Excel or Open Office's Calc is **highly** encouraged.
 2. Copy the default.txt file and open the copy in your editor:
 	* Excel: Drag the file into Excel and keep the default settings for interpreting text files.
-	* Open Offic Calc: Drag the file into Calc and change 'Seperated by' to Tab.
+	* Open Offic Calc: Drag the file into Calc and change 'Separated by' to Tab.
 3. Don't change the first line in the spreadsheet. It shows you, which column is for what kind of input.
 	Every line after the first one then represents one tick. 
   * Macros written in the column "Files" will  be opened or closed. If you write hh_timing.txt into the third line for example (which is tick 2), it will register the macro and start executing it in tick 3.
@@ -38,10 +38,10 @@ Since this can be considered cheating, the author advises to use the tool only f
 
 
 # Hotkeys:
-* F9: Repeats the last macro you input into the console. When you change the macro before pressing F9,
+* B: Repeats the last macro you input into the console. When you change the macro before pressing F9,
     those changes will be instantly applied.
-* F10:Stops all currently running macros.
-* F12:Reloads all configs from the config file (Should be used after changing the mouse sensitivity and hotkeys).
+* N:Stops all currently running macros.
+* M:Reloads all configs from the config file (Should be used after changing the mouse sensitivity and hotkeys).
 
 
 
@@ -60,14 +60,12 @@ Since this can be considered cheating, the author advises to use the tool only f
 * `<list>` lists all macros that are currently being read and executed.
 			
 ### start <'file'> ['numberOfTicks']                                           
-* `<start 'file'>` begins executing the macro file.                                      
+* `<start 'file'>` begins executing the macro file. Make sure you include just the name, not the extension.                                      
 * `<start 'file' 'numberOfTicks'>` opens the macro file after the specified amount of ticks.
 * The file needs to be in the same directory as the Macro Parkour Tool.                    
-* You also have to specify the file type with the corresponding filename extension.      
-* Examples: `<start hard_jump.txt>`, `<start double_triple_neo.txt 40>`
-	
+
 ### stop ['file']                                   
-* `<stop>` stops all running macros and simulated keypresses.
+* `<stop>` stops all running macros and simulated key presses.
 * `<stop 'file'>` stops interpreting the file.            
 *  Examples: `<stop>`, `<stop quad_neo>`
 
@@ -77,21 +75,20 @@ Since this can be considered cheating, the author advises to use the tool only f
 ### Q: What is the tool for?
 A: With the tool, players are on the one hand supposed to push the boundaries of parkour in Minecraft.
 It doesn't matter, if this means doing very hard jumps or creating a TAS, 
-even though the latter may become a tideous task.
+even though the latter may become a tedious task.
 On the other hand you might learn how to do jumps more easily by actually creating a macro that does the jump.
 The tool might also help, find new techniques, if there are any.
   
 ### Q: Why does a macro work for me, but not for someone else.
-A: If that is the case, make sure you use the same ingame mouse sensitivity.
+A: If that is the case, make sure you use the same in-game mouse sensitivity.
 
-### Q: Why is my macro incosistent?
-A: The cause for incosistencies is often lag. If Minecraft has to skip a tick or the tool takes longer 
-than a minecraft tick to compute it's own tick, the run is basically ruined. If that happens make sure 
+### Q: Why is my macro inconsistent?
+A: The cause for consistencies is often lag. If Minecraft has to skip a tick, or the tool takes longer 
+than a minecraft tick to compute its own tick, the run is basically ruined. If that happens make sure 
 you reduce settings in Minecraft and close background programs. Also check the Task Manager to make sure
 you have no other instances of the tool running.
    
 ### Q: What features are planned in the future?
-A: The next goal is to implement LWJGL (a library, Minecraft uses as well) to make sure every Minecraft
-key can be simulated in the future. It is planned to turn the tool into an internal mod, in order to fix
+A: The next goal is to make pitch and yaw precise, as now it does not turn to the specified angle. Also,  It is planned to turn the tool into an internal mod, in order to fix
 some major issues and implement features like seeing effects of changes in your macros in game or
-skipping between ticks so you dont have to run macros from the start each time.
+skipping between ticks, so you don't have to run macros from the start each time.
