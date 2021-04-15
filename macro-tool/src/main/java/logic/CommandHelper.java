@@ -1,5 +1,7 @@
 package logic;
 
+//import ui.JConsole;
+
 public class CommandHelper {
 
     public static String input = "";
@@ -137,6 +139,9 @@ public class CommandHelper {
                     printMessage(Main.versionDate);
                     printMessage("Developed by Kideneb, forked by girraiffe");
                     System.out.println();
+                    break;
+                case "close":
+                    Main.console.closeFrame(1000);
                     break;
                 default:
                     printError("Unknown command \"" + command + "\".");

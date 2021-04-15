@@ -7,6 +7,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
 import java.io.PrintStream;
 
 import javax.swing.JFrame;
@@ -26,31 +27,16 @@ public class JConsole extends JFrame {
     private final JTextField textField;
 
     /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
-            try {
-                JConsole frame = new JConsole();
-                frame.setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-    /**
      * Create the frame.
      */
-    public JConsole() {
+    public JConsole(String title) {
+        super(title);
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e1) {
             e1.printStackTrace();
         }
-
         setForeground(Color.BLACK);
-        setTitle(Main.versionName);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 860, 480);
         JPanel contentPane = new JPanel();
@@ -96,9 +82,38 @@ public class JConsole extends JFrame {
         gbc_textField.gridx = 0;
         gbc_textField.gridy = 1;
         contentPane.add(textField, gbc_textField);
-        TextAreaOutputStream taos = new TextAreaOutputStream(textArea);
-        PrintStream ps = new PrintStream(taos);
+        TextAreaOutputStream textOutput = new TextAreaOutputStream(textArea);
+        PrintStream ps = new PrintStream(textOutput);
         System.setOut(ps);
         System.setErr(ps);
+
     }
+
+    /**
+     * Make a call to close the Window
+     */
+    public void closeFrame(int timeMs) {
+        System.out.println("Closing in " + timeMs/1000 + " seconds...");
+        try {
+            Thread.sleep(timeMs);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+    }
+
+    /**
+     * Launch the application.
+     */
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            try {
+                JConsole frame = new JConsole(Main.versionName);
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
 }

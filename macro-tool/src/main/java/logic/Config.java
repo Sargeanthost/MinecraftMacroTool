@@ -161,23 +161,11 @@ public class Config {
 
     public static void readConfig() {
         try {
-            //config file
-            BufferedReader in = new BufferedReader(new FileReader(Macro.WORKING_DIR + "config.txt"));
-            //dumps info line
-            in.readLine();
-            String dir = in.readLine();
-            in.readLine();
-            String sensitivity = in.readLine();
-            try {
-                mouseSensitivityPercent = Integer.parseInt(sensitivity.substring(sensitivity.indexOf(':') + 1));
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            }
-            in.close();
-
             //minecraft file
-            String optPath = dir.substring(dir.indexOf(':') + 1) + File.separator + "\\options.txt";
-            in = new BufferedReader(new FileReader(optPath));
+            FileReader optPath = new FileReader(System.getProperty("user.home") + "\\Appdata\\Roaming\\" +
+                    ".minecraft\\options.txt");
+
+            BufferedReader in = new BufferedReader(optPath);
             while (in.ready()) {
                 int var;
                 String l = in.readLine();
@@ -246,7 +234,10 @@ public class Config {
 
         } catch (FileNotFoundException e) {
             System.out.println(
-                    "The config file could not be found in the directory. Default state will be applied.");
+                    "The options.txt file could not be found in the Roaming directory.");
+            //add sleep
+            Main.console.closeFrame(2000);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

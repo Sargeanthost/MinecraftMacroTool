@@ -8,6 +8,7 @@ public class Helper {
             Config.attackKey, Config.useKey};
     public static Map<Integer, Integer> sensitivityHash;
 
+    //TODO just get rid of this and throw an error if options.txt cant be found like a sane human being
     static {
         sensitivityHash = new HashMap<>();
         sensitivityHash.put(0, 0);

@@ -19,11 +19,26 @@ public abstract class Main {
     static long millis;
     static String[] args;
 
-    public static void main(String[] args) throws AWTException {
+    static JConsole console;
+    static CommandHelper ch;
+//    static Robot robot;
+
+//    public Main(){
+//        console = new JConsole(Main.versionName);
+//        ch = new CommandHelper();
+//        try {
+//            robot = new Robot();
+//        } catch (AWTException e) {
+//            System.out.println("Robot failed to initialize");
+//            e.printStackTrace();
+//        }
+//    }
+
+    public static void main(String[] args) throws AWTException{
         Main.args = args;
-        JConsole console = new JConsole();
+        console = new JConsole(Main.versionName);
         console.setVisible(true);
-        CommandHelper ch = new CommandHelper();
+        ch = new CommandHelper();
         Robot robot = new Robot();
         GlobalKeyListener.start();
 
