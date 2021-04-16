@@ -5,14 +5,13 @@ Those macros can include movements which are humanly impossible.
 Since this can be considered cheating, the author advises to use the tool only for testing purposes and never on multiplayer servers.
 
 
+
 # How to start the tool:
 
-1. For an up-to-date package, compile from source by using `mvn package` or a built-in maven plugin. Make sure you're in the folder with the `pom.xml` file in it.
-2. Configure Config.txt from the old release under [releases](https://github.com/Kideneb/MinecraftMacroTool/releases).
-3. Make sure the jar and Config file are in the directory.
-4. Run the jar; A console should pop up with basic information (getting an error currently, still works though).
+1. Grab the latest release jar, or, for an up-to-date package, compile from source by using `mvn package` or a built-in maven plugin. Make sure you're in the folder with the `pom.xml` file in it.
+2. Run the jar; a console should pop up with basic information.
 	If this does not work make sure, you have java installed correctly.
-5. Now you can input commands. A list of commands can be found below.
+3. Now you can input commands. A list of commands can be found below.
    
    
    
@@ -38,11 +37,10 @@ Since this can be considered cheating, the author advises to use the tool only f
 
 
 # Hotkeys:
-* B: Repeats the last macro you input into the console. When you change the macro before pressing F9,
+* F8:Reloads all configs from the config file (Should be used after changing the mouse sensitivity and hotkeys).
+* F9: Repeats the last macro you input into the console. When you change the macro before pressing F9,
     those changes will be instantly applied.
-* N:Stops all currently running macros.
-* M:Reloads all configs from the config file (Should be used after changing the mouse sensitivity and hotkeys).
-
+* F10:Stops all currently running macros.
 
 
 
@@ -77,7 +75,7 @@ A: With the tool, players are on the one hand supposed to push the boundaries of
 It doesn't matter, if this means doing very hard jumps or creating a TAS, 
 even though the latter may become a tedious task.
 On the other hand you might learn how to do jumps more easily by actually creating a macro that does the jump.
-The tool might also help, find new techniques, if there are any.
+The tool might also help find new techniques, if there are any.
   
 ### Q: Why does a macro work for me, but not for someone else.
 A: If that is the case, make sure you use the same in-game mouse sensitivity.
