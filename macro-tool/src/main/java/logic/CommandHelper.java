@@ -98,7 +98,7 @@ public class CommandHelper {
 
                     break;
                 case "start":
-                    if (singleWordCommand || command.equals("start ")) {
+                    if (singleWordCommand) {
                         printError("\"start\" needs filename parameter (start <'file'> ['numberOfTicks']).");
                     } else {
                         Macro.prevMacro = params[0];

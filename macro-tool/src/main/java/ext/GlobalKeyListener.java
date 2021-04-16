@@ -13,18 +13,18 @@ import org.jnativehook.keyboard.NativeKeyListener;
 
 public class GlobalKeyListener implements NativeKeyListener {
     public void nativeKeyPressed(NativeKeyEvent e) {
-        //throws NullPointerException
-        //System.out.println("Key Pressed: " + NativeKeyEvent.getKeyText(e.getKeyCode()));
-        //add keybind config
+//        System.out.println("Key Pressed: " + NativeKeyEvent.getKeyText(e.getKeyCode()));
 
         if (e.getKeyCode() == NativeKeyEvent.VC_F10) {
+            System.out.println("Stopping current macro...");
             Macro.closeMacros();
         }
         if (e.getKeyCode() == NativeKeyEvent.VC_F9) {
-            System.out.println("Executing: " + Macro.prevMacro);
+            System.out.println("Rerunning previous macro...");
             new Macro(Macro.prevMacro);
         }
         if (e.getKeyCode() == NativeKeyEvent.VC_F8) {
+            System.out.println("Updating configuration...");
             Config.readOptions();
         }
     }

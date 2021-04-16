@@ -13,8 +13,8 @@ import ui.JConsole;
 
 public abstract class Main {
 
-    static public String versionName = "Macro Parkour Tool 0.1.3";
-    static public String versionDate = "2021-04-13";
+    static public String versionName = "Macro Parkour Tool 0.1.4";
+    static public String versionDate = "2021-04-15";
 
     static long millis;
     static String[] args;
@@ -23,7 +23,7 @@ public abstract class Main {
     static CommandHelper ch;
 
 
-    public static void main(String[] args) throws AWTException{
+    public static void main(String[] args) throws AWTException {
         Main.args = args;
 
         console = new JConsole(Main.versionName);
@@ -41,7 +41,7 @@ public abstract class Main {
         sleepTillTick();
         //noinspection InfiniteLoopStatement
         while (true) {
-
+// runs twice when running start command
             ch.listen();
             if (Macro.currentMacros.size() != 0) {
                 try {
@@ -56,15 +56,11 @@ public abstract class Main {
                     try {
                         return !m.userInput.ready();
                     } catch (IOException e2) {
-                        //weiiiiiiird, maybe remove nullpointerexception
                         System.out.println("main 48");
                         e2.printStackTrace();
-                    } catch ( NullPointerException e3){
+                    } catch (NullPointerException e3) {
                         System.out.println("main 72");
                         e3.printStackTrace();
-//                        Macro.closeMacros();
-//                        currentMacros.remove(this);
-//                        allOutputsClosed = true;
                     }
                     return false;
                 });
@@ -147,9 +143,9 @@ public abstract class Main {
 
     static int calcYaw() {
         //calcfullx
-		float num;
-		num = Macro.xRotation;
-		num = (float) ((double)num / 0.15);
+        float num;
+        num = Macro.xRotation;
+        num = (float) ((double) num / 0.15);
 
         float f = (float) (Config.mouseSensitivity * 0.6F + 0.2F);
         float f1 = f * f * f * 8.0F;

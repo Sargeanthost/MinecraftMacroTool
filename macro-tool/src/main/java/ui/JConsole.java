@@ -94,10 +94,12 @@ public class JConsole extends JFrame {
     }
 
     /**
-     * Make a call to close the Window
+     * Make a call to close the Window.
+     * Only use when an error is raised in which the program cant recover from.
+     * @param timeMs The time in milliseconds for the program to freeze. Gives time to read errors.
      */
     public void closeFrame(int timeMs) {
-        System.out.println("Closing in " + timeMs/1000 + " seconds...");
+        System.out.println("Closing in " + timeMs / 1000 + " seconds...");
         try {
             Thread.sleep(timeMs);
         } catch (InterruptedException e) {

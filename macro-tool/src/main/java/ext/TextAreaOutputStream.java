@@ -41,7 +41,6 @@ public class TextAreaOutputStream
 //            appender.clear();
 //        }
 //    }
-
     public synchronized void close() {
         appender = null;
     }

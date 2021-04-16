@@ -10,7 +10,7 @@ public class Macro {
 
     public static Vector<Macro> currentMacros = new Vector<>();
 
-    private String file;
+    private final String file;
     private int line = 1;
 
     BufferedReader userInput;
@@ -49,10 +49,10 @@ public class Macro {
         } catch (FileNotFoundException e1) {
             if (!(this.file.equals("null.txt") || this.file.equals(".txt"))) {
                 CommandHelper.printError("The file: " + this.file + " could not be found.");
-                CommandHelper.printError("Make sure " + this.file + " is in: " + System.getProperty("user.dir"));
+                CommandHelper.printError("Make sure " + this.file + " is in: " + WORKING_DIR);
                 currentMacros.remove(this);
                 allOutputsClosed = true;
-            }//TODO handle "start ", currently only handles wrong name or "start" only
+            }
         }
 
         try {
@@ -60,19 +60,18 @@ public class Macro {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (NullPointerException e1) {
-            CommandHelper.printWarning("No loaded macro. Make sure you read the command help");
+            CommandHelper.printError("No macro loaded. Type <help> for information on how to start a macro.");
         }
 
     }
 
     public void readLine() {
-//        System.out.println("Executing: " + this.file); in keylistener
         this.line++;
         try {
             String[] lineSplit = this.userInput.readLine().split("\t");
             if (lineSplit.length > 0) {
-//                System.out.println(this.userInput.readLine());
                 if (!lineSplit[0].equals("")) {
+
                     String[] newMacros = lineSplit[0].split("/");
                     for (String string : newMacros) {
                         if (string.startsWith("-")) {
@@ -106,8 +105,7 @@ public class Macro {
         } catch (IOException e) {
             System.out.println("Mystery error");
             e.printStackTrace();
-        } catch (NullPointerException e1){
-            System.out.println("Null file");
+        } catch (NullPointerException e1) {
             currentMacros.remove(this);
             allOutputsClosed = true;
         }

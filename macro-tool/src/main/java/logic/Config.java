@@ -163,7 +163,7 @@ public class Config {
         try {
             //options.txt
             FileReader optPath = new FileReader(System.getProperty("user.home") + "\\Appdata\\Roaming\\" +
-                    ".minecraft\\options.txt");
+                                                        ".minecraft\\options.txt");
 
             BufferedReader in = new BufferedReader(optPath);
             while (in.ready()) {
@@ -235,7 +235,7 @@ public class Config {
 
         } catch (FileNotFoundException e) {
             System.out.println(
-                    "The options.txt file could not be found in the Roaming directory.");
+                    "The options.txt file could not be found in the .minecraft directory.");
             //close because useless without this.
             Main.console.closeFrame(2000);
 
