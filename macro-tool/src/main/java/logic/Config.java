@@ -9,7 +9,6 @@ import java.util.Map;
 
 public class Config {
     static double mouseSensitivity = 0.5;
-    static int mouseSensitivityPercent = -1;
     static int forwardKey = KeyEvent.VK_W;
     static int leftKey = KeyEvent.VK_A;
     static int backKey = KeyEvent.VK_S;
@@ -23,8 +22,6 @@ public class Config {
     public static Map<Integer, Integer> keyCodesHash;
 
     static {
-        //!removed Integer, Integer from diamond on l:26
-        //!add support for mouse 4 and 5
         keyCodesHash = new HashMap<>();
         keyCodesHash.put(0x01, 0x1B);
         keyCodesHash.put(0x02, 0x31);
@@ -223,20 +220,12 @@ public class Config {
                     }
                 }
             }
-            // TODO whats this for? Are we using the percent number or the percent decimal
-            if (mouseSensitivityPercent != -1) {
-                //why make an object
-                Helper helper = new Helper();
-                mouseSensitivity = helper.convertMouseSensitivity(mouseSensitivityPercent);
-            }
             System.out.println("Mouse sensitivity: " + mouseSensitivity);
-            //setpointpix(45) - current pixels= 45 degree turn
             Macro.currentXPixels = Main.calcYaw();
 
         } catch (FileNotFoundException e) {
             System.out.println(
                     "The options.txt file could not be found in the .minecraft directory.");
-            //close because useless without this.
             Main.console.closeFrame(2000);
 
         } catch (IOException e) {
