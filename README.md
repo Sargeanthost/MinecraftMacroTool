@@ -20,7 +20,7 @@ Since this can be considered cheating, the author advises to use the tool only f
 	You can simply choose any text editor but using either Microsoft Office's Excel or Open Office's Calc is **highly** encouraged.
 2. Copy the default.txt file and open the copy in your editor:
 	* Excel: Drag the file into Excel and keep the default settings for interpreting text files.
-	* Open Offic Calc: Drag the file into Calc and change 'Separated by' to Tab.
+	* LibreOffice Calc: Drag the file into Calc and change 'Separated by' to Tab.
 3. Don't change the first line in the spreadsheet. It shows you, which column is for what kind of input.
 	Every line after the first one then represents one tick. 
   * Macros written in the column "Files" will  be opened or closed. If you write hh_timing.txt into the third line for example (which is tick 2), it will register the macro and start executing it in tick 3.
@@ -31,7 +31,7 @@ Since this can be considered cheating, the author advises to use the tool only f
 		For example, if you write "5" into the sneak column, line 5, the sneak key will be pressed during ticks 4-8.
   * The column "Direction" accepts any number. The number represents the amount of rotation
 		your character will undergo in the tick. e.g. "-15.6" will make you turn about 15.6° to the left.
-		The actual rotation you undergo is just the closest possible value and will increase in accuracy with a lower ingame mouse sensitivity.
+		The actual rotation you undergo is just the closest possible value and will increase in accuracy the closer your in game sensitivity is to 100%.
 4. After the macro has been edited, it should be saved into the text file again.
 
 
@@ -40,7 +40,7 @@ Since this can be considered cheating, the author advises to use the tool only f
 * F8:Reloads all configs from the config file (Should be used after changing the mouse sensitivity and hotkeys).
 * F9: Repeats the last macro you input into the console. When you change the macro before pressing F9,
     those changes will be instantly applied.
-* F10:Stops all currently running macros.
+* F10: Stops all currently running macros.
 
 
 
@@ -76,9 +76,6 @@ It doesn't matter, if this means doing very hard jumps or creating a TAS,
 even though the latter may become a tedious task.
 On the other hand you might learn how to do jumps more easily by actually creating a macro that does the jump.
 The tool might also help find new techniques, if there are any.
-  
-### Q: Why does a macro work for me, but not for someone else.
-A: If that is the case, make sure you use the same in-game mouse sensitivity.
 
 ### Q: Why is my macro inconsistent?
 A: The cause for consistencies is often lag. If Minecraft has to skip a tick, or the tool takes longer 
@@ -87,6 +84,7 @@ you reduce settings in Minecraft and close background programs. Also check the T
 you have no other instances of the tool running.
    
 ### Q: What features are planned in the future?
-A: The next goal is to make pitch and yaw precise, as now it does not turn to the specified angle. Also,  It is planned to turn the tool into an internal mod, in order to fix
+A: A `load` command so your macro is loaded yet not executed until you press F9. This prevents annoying behavior when 
+executing macros on the desktop. It is also planned to turn the tool into an internal mod, in order to fix
 some major issues and implement features like seeing effects of changes in your macros in game or
 skipping between ticks, so you don't have to run macros from the start each time.
