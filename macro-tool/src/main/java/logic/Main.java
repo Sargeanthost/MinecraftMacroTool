@@ -13,7 +13,7 @@ import ui.JConsole;
 
 public abstract class Main {
 
-    static public String versionName = "Macro Parkour Tool 0.2.0";
+    static public String versionName = "Macro Parkour Tool 0.2.1";
     static public String versionDate = "2021-04-17";
 
     static long millis;

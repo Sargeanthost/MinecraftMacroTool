@@ -26,9 +26,6 @@ public class JConsole extends JFrame {
 
     private final JTextField textField;
 
-    /**
-     * Create the frame.
-     */
     public JConsole(String title) {
         super(title);
         try {
@@ -90,13 +87,12 @@ public class JConsole extends JFrame {
         textField.setCaretColor(Color.WHITE);
         System.setOut(ps);
         System.setErr(ps);
-
     }
 
     /**
-     * Make a call to close the Window.
-     * Only use when an error is raised in which the program cant recover from.
-     * @param timeMs The time in milliseconds for the program to freeze. Gives time to read errors.
+     * Make a call to close the JFrame.
+     * Only use when an error is raised in which the program can't recover from.
+     * @param timeMs The time in milliseconds for the program to freeze; gives time to read errors.
      */
     public void closeFrame(int timeMs) {
         System.out.println("Closing in " + timeMs / 1000 + " seconds...");
@@ -108,9 +104,6 @@ public class JConsole extends JFrame {
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }
 
-    /**
-     * Launch the application.
-     */
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             try {
@@ -121,5 +114,4 @@ public class JConsole extends JFrame {
             }
         });
     }
-
 }
