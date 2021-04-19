@@ -159,7 +159,7 @@ public abstract class Main {
 
         float f = (float) (Config.mouseSensitivity * 0.6F + 0.2F);
         float f1 = f * f * f * 8.0F;
-        return (int) ((num / f1) / Helper.getScalingFactor());
+        return (int) (-1 * ((num / f1) / Helper.getScalingFactor()));
     }
 
     public static void sleepTillTick() {
@@ -171,7 +171,6 @@ public abstract class Main {
             }
         }
     }
-
 }
 
 
