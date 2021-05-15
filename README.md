@@ -10,7 +10,7 @@ Since this can be considered cheating, the author advises to use the tool only f
 
 1. Grab the latest release jar, or, for an up-to-date package, compile from source by using `mvn package` or a built-in maven plugin. Make sure you're in the folder with the `pom.xml` file in it.
 2. Run the jar; a console should pop up with basic information.
-	If this does not work make sure, you have java installed correctly.
+	If this does not work then make sure you have java installed correctly.
 3. Now you can input commands. A list of commands can be found below.
    
    
@@ -33,11 +33,12 @@ Since this can be considered cheating, the author advises to use the tool only f
 		your character will undergo in the tick. e.g. "-15.6" will make you turn about 15.6° to the left.
 		The actual rotation you undergo is just the closest possible value and will increase in accuracy the closer your in game sensitivity is to 100%.
 4. After the macro has been edited, it should be saved into the text file again.
+5. Make sure that you save the file as a `.txt` file with tab seperation.
 
 
 
 # Hotkeys:
-* F8:Reloads all configs from the config file (Should be used after changing the mouse sensitivity and hotkeys).
+* F8: Reloads all configs from the config file (Should be used after changing the mouse sensitivity and hotkeys).
 * F9: Repeats the last macro you input into the console. When you change the macro before pressing F9,
     those changes will be instantly applied.
 * F10: Stops all currently running macros.
