@@ -1,7 +1,7 @@
 package logic;
 
 import ext.GlobalKeyListener;
-import ext.TextAreaOutputStream;
+import org.jnativehook.keyboard.NativeKeyEvent;
 
 import java.io.File;
 
@@ -83,6 +83,16 @@ public class CommandHelper {
                                 printMessage("Syntax: info");
                                 printMessage(
                                         "\"info\" shows information about the tool's version, author and release date.");
+                                break;
+                            case "set":
+                                printMessage("Syntax: set [CLEAR|RELOAD|REPLAY|STOP] [keyCode]");
+                                printMessage("\"set\" rebinds the hotkey for selected actions based on the parameters" +
+                                                     " given.");
+                                printMessage("Make sure the keycode is a valid input as listed in the NativeKeyEvent " +
+                                                     "class.");
+                                break;
+                            case "clear":
+                                printMessage("Clears the text output area.");
                                 break;
                             default:
                                 printError("Unknown command \"" + params[0] + "\".");
@@ -172,23 +182,42 @@ public class CommandHelper {
                             if (params.length == 2){
                                 switch (params[0]) {
                                     case "CLEAR":
-                                        GlobalKeyListener.setHotKey(0, Integer.parseInt(params[1]));
-                                        break;
-                                    case "READ":
-                                        GlobalKeyListener.setHotKey(1, Integer.parseInt(params[1]));
+                                        if(GlobalKeyListener.isValidEntry(0, Integer.parseInt(params[1]))) {
+                                            GlobalKeyListener.setHotKey(0, Integer.parseInt(params[1]));
+                                            printMessage("Set Clear hotkey to: " + NativeKeyEvent.getKeyText(
+                                                    Integer.parseInt(params[1])));
+                                        }
                                         break;
                                     case "RELOAD":
-                                        GlobalKeyListener.setHotKey(2, Integer.parseInt(params[1]));
+                                        if(GlobalKeyListener.isValidEntry(1, Integer.parseInt(params[1]))) {
+                                            GlobalKeyListener.setHotKey(1, Integer.parseInt(params[1]));
+                                            printMessage("Set execute previous macro hotkey to: " + NativeKeyEvent.getKeyText(
+                                                    Integer.parseInt(params[1])));
+                                        }
+
+
                                         break;
-                                    case "CLOSE":
-                                        GlobalKeyListener.setHotKey(3, Integer.parseInt(params[1]));
+                                    case "REPLAY":
+                                        if(GlobalKeyListener.isValidEntry(2, Integer.parseInt(params[1]))){
+                                            GlobalKeyListener.setHotKey(2, Integer.parseInt(params[1]));
+                                            printMessage("Set Clear hotkey to: " + NativeKeyEvent.getKeyText(
+                                                    Integer.parseInt(params[1])));
+                                        }
+
+                                        break;
+                                    case "STOP":
+                                        if(GlobalKeyListener.isValidEntry(3, Integer.parseInt(params[1]))) {
+                                            GlobalKeyListener.setHotKey(3, Integer.parseInt(params[1]));
+                                            printMessage("Set stop hotkey to: " + NativeKeyEvent.getKeyText(
+                                                    Integer.parseInt(params[1])));
+                                        }
                                         break;
                                     default:
                                         printError("Invalid hotkey parameter");
                                         break;
                                 }
                             } else {
-                                printWarning("Invalid parameter length.");
+                                printError("Invalid parameter length.");
                                 break;
                             }
                         } catch(NumberFormatException e){

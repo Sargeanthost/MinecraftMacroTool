@@ -1,5 +1,6 @@
 package ext;
 
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,7 +14,7 @@ import org.jnativehook.keyboard.NativeKeyListener;
 
 
 public class GlobalKeyListener implements NativeKeyListener {
-    private static int[] hotKeys = {NativeKeyEvent.VC_F7, NativeKeyEvent.VC_F8, NativeKeyEvent.VC_F9,
+    private static final int[] hotKeys = {NativeKeyEvent.VC_F7, NativeKeyEvent.VC_F8, NativeKeyEvent.VC_F9,
             NativeKeyEvent.VC_F10};
 
     public void nativeKeyPressed(NativeKeyEvent e) {
@@ -42,16 +43,22 @@ public class GlobalKeyListener implements NativeKeyListener {
     }
 
     /**
+     * Checks if arguments are unique and within the valid index range for {@link #hotKeys}
+     * @param index the index in {@link #hotKeys}
+     * @param keyConstant the key constant as listed in {@link NativeKeyEvent}
+     * @return whether the arguments is valid or not
+     */
+    public static boolean isValidEntry(final int index, final int keyConstant) {
+        return Arrays.stream(hotKeys).noneMatch(i -> i == keyConstant) && (index >= 0 && index <= hotKeys.length - 1);
+    }
+
+    /**
      * Sets the specified hotkey.
      * @param index the index to modify. Must be between 0 and 3
      * @param keyConstant the key constant integer as specified in {@link NativeKeyEvent}
      */
-    public static boolean setHotKey(int index, int keyConstant){
-        if(index >= 0 && index <= 3){
+    public static void setHotKey(int index, int keyConstant){
             hotKeys[index] = keyConstant;
-            return true;
-        }
-        return false;
     }
 
     public static void start() {
