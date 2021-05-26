@@ -117,7 +117,6 @@ public abstract class Main {
 
 //            System.out.println(logic.Macro.currentXPixels);
 //            System.out.println(fullX);
-//            current px to turn:
 //            System.out.println(deltaX);
 
             robot.mouseMove(x + deltaX, y);
@@ -134,7 +133,6 @@ public abstract class Main {
             Macro.currentYPixels = fullY;
             //System.out.println(logic.Macro.currentYPixels);
             //System.out.println(fullY);
-            //current px to turn:
             //System.out.println(deltaY);
 
             robot.mouseMove(x, y + deltaY);
@@ -170,6 +168,10 @@ public abstract class Main {
                 e3.printStackTrace();
             }
         }
+    }
+
+    public static JConsole getConsole(){
+        return console;
     }
 }
 

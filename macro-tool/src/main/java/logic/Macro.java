@@ -48,8 +48,9 @@ public class Macro {
             this.userInput = new BufferedReader(new FileReader(WORKING_DIR + this.getFile()));
         } catch (FileNotFoundException e1) {
             if (!(this.file.equals("null.txt") || this.file.equals(".txt"))) {
-                CommandHelper.printError("The file: " + this.file + " could not be found.");
-                CommandHelper.printError("Make sure " + this.file + " is in: " + WORKING_DIR);
+                CommandHelper.printError(
+                        "The file: " + this.file + " could not be found.\nMake sure " + this.file +
+                                " is in: " + WORKING_DIR);
                 currentMacros.remove(this);
                 allOutputsClosed = true;
             }
@@ -95,15 +96,17 @@ public class Macro {
                         }
                     }
                 }
-                if (lineSplit.length > 10 && !lineSplit[10].equals("")) {
+                if (lineSplit.length == 11 && !lineSplit[10].equals("")) {
                     xRotation += Double.parseDouble(lineSplit[10]);
                 }
-                if (lineSplit.length > 11) {
+                if (lineSplit.length == 12 && !lineSplit[11].equals("")) {
                     yRotation += Double.parseDouble(lineSplit[11]);
+                }
+                if(lineSplit.length == 13 && !lineSplit[12].equals("")){
+                    System.out.println(lineSplit[12]);
                 }
             }
         } catch (IOException e) {
-            System.out.println("Mystery error");
             e.printStackTrace();
         } catch (NullPointerException e1) {
             currentMacros.remove(this);

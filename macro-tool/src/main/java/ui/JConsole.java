@@ -25,6 +25,7 @@ import ext.TextAreaOutputStream;
 public class JConsole extends JFrame {
 
     private final JTextField textField;
+    private TextAreaOutputStream textOutput;
 
     public JConsole(String title) {
         super(title);
@@ -80,7 +81,7 @@ public class JConsole extends JFrame {
         gbc_textField.gridx = 0;
         gbc_textField.gridy = 1;
         contentPane.add(textField, gbc_textField);
-        TextAreaOutputStream textOutput = new TextAreaOutputStream(textArea);
+        textOutput = new TextAreaOutputStream(textArea);
         PrintStream ps = new PrintStream(textOutput);
         textField.requestFocusInWindow();
         textField.getCaret().setVisible(true);
@@ -99,9 +100,13 @@ public class JConsole extends JFrame {
         try {
             Thread.sleep(timeMs);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            //just close
         }
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+    }
+
+    public TextAreaOutputStream getTextOutput() {
+        return textOutput;
     }
 
     public static void main(String[] args) {

@@ -20,6 +20,7 @@ public class TextAreaOutputStream
     private Appender appender;                                                   // most recent action
 
     public TextAreaOutputStream(JTextArea txtArea) {
+
         this(txtArea, 1000);
     }
 
@@ -35,12 +36,11 @@ public class TextAreaOutputStream
     /**
      * Clear the current console text area.
      */
-    //!clear command?
-//    public synchronized void clear() {
-//        if (appender != null) {
-//            appender.clear();
-//        }
-//    }
+    public synchronized void clear() {
+        if (appender != null) {
+            appender.clear();
+        }
+    }
     public synchronized void close() {
         appender = null;
     }
@@ -68,10 +68,6 @@ public class TextAreaOutputStream
         return new String(ba, str, len, StandardCharsets.UTF_8);
     }
 
-// *************************************************************************************************
-// STATIC MEMBERS
-// *************************************************************************************************
-
     static class Appender
             implements Runnable {
         private final JTextArea textArea;
@@ -83,9 +79,9 @@ public class TextAreaOutputStream
         private boolean clear;
         private boolean queue;
 
-        Appender(JTextArea txtara, int maxlin) {
-            textArea = txtara;
-            maxLines = maxlin;
+        Appender(JTextArea textArea, int maxLine) {
+            this.textArea = textArea;
+            maxLines = maxLine;
             lengths = new LinkedList<>();
             values = new ArrayList<>();
 
@@ -102,18 +98,18 @@ public class TextAreaOutputStream
             }
         }
 
-//        synchronized void clear() {
-//            clear = true;
-//            curLength = 0;
-//            lengths.clear();
-//            values.clear();
-//            if (queue) {
-//                queue = false;
-//                EventQueue.invokeLater(this);
-//            }
-//        }
+        synchronized void clear() {
+            clear = true;
+            curLength = 0;
+            lengths.clear();
+            values.clear();
+            if (queue) {
+                queue = false;
+                EventQueue.invokeLater(this);
+            }
+        }
 
-        // MUST BE THE ONLY METHOD THAT TOUCHES textArea!
+        //! MUST BE THE ONLY METHOD THAT TOUCHES textArea!
         public synchronized void run() {
             if (clear) {
                 textArea.setText("");
@@ -138,4 +134,4 @@ public class TextAreaOutputStream
         static private final String EOL2 = System.getProperty("line.separator", EOL1);
     }
 
-} /* END PUBLIC CLASS */
+}

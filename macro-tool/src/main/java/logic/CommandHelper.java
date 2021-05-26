@@ -1,6 +1,9 @@
 package logic;
 
-//import ui.JConsole;
+import ext.GlobalKeyListener;
+import ext.TextAreaOutputStream;
+
+import java.io.File;
 
 public class CommandHelper {
 
@@ -9,7 +12,6 @@ public class CommandHelper {
     public void listen() {
         if (!input.equals("")) {
             String line = input;
-//            System.out.println(line); <maybe not
             input = "";
             String command;
             boolean singleWordCommand;
@@ -58,7 +60,7 @@ public class CommandHelper {
                                 break;
                             case "list":
                                 printMessage("Syntax: list");
-                                printMessage("\"list\" lists all macros that are currently being read and executed.");
+                                printMessage("\"list\" lists all macros that are in the current working directory.");
                                 break;
                             case "start":
                                 printMessage("Syntax: start <'file'> ['numberOfTicks']");
@@ -93,9 +95,21 @@ public class CommandHelper {
                 case "list":
                     if (!singleWordCommand) {
                         printWarning("\"list\" has no parameters (list)");
-                    }
-                    Macro.currentMacros.forEach((Macro macro) -> System.out.println(macro.getFile()));
+                    } else {
+                        FileFilter txtFilter = new FileFilter(".txt");
+                        File dirFile = new File(Macro.WORKING_DIR);
+                        String[] listOfTextFiles = dirFile.list(txtFilter);
 
+                        if(listOfTextFiles != null) {
+                            if (listOfTextFiles.length == 0) {
+                                System.out.println("There are no text files in this directory!");
+                                return;
+                            }
+                            for (String file : listOfTextFiles) {
+                                System.out.println(file);
+                            }
+                        }
+                    }
                     break;
                 case "start":
                     if (singleWordCommand) {
@@ -133,15 +147,55 @@ public class CommandHelper {
                 case "info":
                     if (!singleWordCommand) {
                         printWarning("\"info\" has no parameters: (info)");
-                    }
+                    } else {
 
-                    printMessage(Main.versionName);
-                    printMessage(Main.versionDate);
-                    printMessage("Developed by Kideneb, forked by girraiffe");
-                    System.out.println();
+                        printMessage(Main.versionName);
+                        printMessage(Main.versionDate);
+                        printMessage("Developed by Kideneb, forked by girraiffe");
+                        System.out.println();
+                    }
                     break;
-                case "close":
-                    Main.console.closeFrame(1000);
+                    //TODO add help for clear and set hotkey
+                case "clear":
+                    if(!singleWordCommand){
+                        printWarning("\"clear\" has no parameters: (clear)");
+                    }else {
+                        Main.getConsole().getTextOutput().clear();
+                    }
+                    break;
+                case "set":
+                    if(singleWordCommand){
+                        printWarning("\"set hotkey\" has two parameters: (set |CLEAR, READ, RELOAD, CLOSE| |keycode|");
+                    } else {
+                        try{
+                            //TODO make sure ints are unique
+                            if (params.length == 2){
+                                switch (params[0]) {
+                                    case "CLEAR":
+                                        GlobalKeyListener.setHotKey(0, Integer.parseInt(params[1]));
+                                        break;
+                                    case "READ":
+                                        GlobalKeyListener.setHotKey(1, Integer.parseInt(params[1]));
+                                        break;
+                                    case "RELOAD":
+                                        GlobalKeyListener.setHotKey(2, Integer.parseInt(params[1]));
+                                        break;
+                                    case "CLOSE":
+                                        GlobalKeyListener.setHotKey(3, Integer.parseInt(params[1]));
+                                        break;
+                                    default:
+                                        printError("Invalid hotkey parameter");
+                                        break;
+                                }
+                            } else {
+                                printWarning("Invalid parameter length.");
+                                break;
+                            }
+                        } catch(NumberFormatException e){
+                            printError("Keycode is not an integer.");
+                            break;
+                        }
+                    }
                     break;
                 default:
                     printError("Unknown command \"" + command + "\".");
