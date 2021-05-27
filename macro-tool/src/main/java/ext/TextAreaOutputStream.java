@@ -12,11 +12,7 @@ import javax.swing.JTextArea;
 public class TextAreaOutputStream
         extends OutputStream {
 
-// *************************************************************************************************
-// INSTANCE MEMBERS
-// *************************************************************************************************
-
-    private byte[] oneByte;                                                    // array for write(int val);
+    private byte[] oneByte;
     private Appender appender;                                                   // most recent action
 
     public TextAreaOutputStream(JTextArea txtArea) {
@@ -71,27 +67,27 @@ public class TextAreaOutputStream
     static class Appender
             implements Runnable {
         private final JTextArea textArea;
-        private final int maxLines;                                                   // maximum lines allowed in text area
-        private final LinkedList<Integer> lengths;                                                    // length of lines within text area
-        private final List<String> values;                                                     // values waiting to be appended
+        private final int maxLines;
+        private final LinkedList<Integer> lengthOfLines;
+        private final List<String> valuesToAppend;
 
-        private int curLength;                                                  // length of current line
+        private int currentLineLength;
         private boolean clear;
         private boolean queue;
 
         Appender(JTextArea textArea, int maxLine) {
             this.textArea = textArea;
             maxLines = maxLine;
-            lengths = new LinkedList<>();
-            values = new ArrayList<>();
+            lengthOfLines = new LinkedList<>();
+            valuesToAppend = new ArrayList<>();
 
-            curLength = 0;
+            currentLineLength = 0;
             clear = false;
             queue = true;
         }
 
         synchronized void append(String val) {
-            values.add(val);
+            valuesToAppend.add(val);
             if (queue) {
                 queue = false;
                 EventQueue.invokeLater(this);
@@ -100,9 +96,9 @@ public class TextAreaOutputStream
 
         synchronized void clear() {
             clear = true;
-            curLength = 0;
-            lengths.clear();
-            values.clear();
+            currentLineLength = 0;
+            lengthOfLines.clear();
+            valuesToAppend.clear();
             if (queue) {
                 queue = false;
                 EventQueue.invokeLater(this);
@@ -114,18 +110,18 @@ public class TextAreaOutputStream
             if (clear) {
                 textArea.setText("");
             }
-            for (String val : values) {
-                curLength += val.length();
+            for (String val : valuesToAppend) {
+                currentLineLength += val.length();
                 if (val.endsWith(EOL1) || val.endsWith(EOL2)) {
-                    if (lengths.size() >= maxLines) {
-                        textArea.replaceRange("", 0, lengths.removeFirst());
+                    if (lengthOfLines.size() >= maxLines) {
+                        textArea.replaceRange("", 0, lengthOfLines.removeFirst());
                     }
-                    lengths.addLast(curLength);
-                    curLength = 0;
+                    lengthOfLines.addLast(currentLineLength);
+                    currentLineLength = 0;
                 }
                 textArea.append(val);
             }
-            values.clear();
+            valuesToAppend.clear();
             clear = false;
             queue = true;
         }

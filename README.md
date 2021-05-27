@@ -1,6 +1,6 @@
 # MinecraftMacroTool
 
-The tool is an external unofficial tool for the game Minecraft, which allows the implementation of movement macros.
+The tool is an external unofficial tool for the game Minecraft which allows the implementation of movement macros.
 Those macros can include movements which are humanly impossible.
 Since this can be considered cheating, the author advises to use the tool only for testing purposes and never on multiplayer servers.
 
@@ -33,12 +33,13 @@ Since this can be considered cheating, the author advises to use the tool only f
 		your character will undergo in the tick. e.g. "-15.6" will make you turn about 15.6° to the left.
 		The actual rotation you undergo is just the closest possible value and will increase in accuracy the closer your in game sensitivity is to 100%.
 4. After the macro has been edited, it should be saved into the text file again.
-5. Make sure that you save the file as a `.txt` file with tab seperation.
+5. Make sure that you save the file as a `.txt` file with tab separation.
 
 
 
 # Hotkeys:
-* F8: Reloads all configs from the config file (Should be used after changing the mouse sensitivity and hotkeys).
+* F7: Clears the text area.
+* F8: Reloads sensitivity from the options.txt file and hotkeys from the hotkeys.txt file.
 * F9: Repeats the last macro you input into the console. When you change the macro before pressing F9,
     those changes will be instantly applied.
 * F10: Stops all currently running macros.
@@ -46,27 +47,7 @@ Since this can be considered cheating, the author advises to use the tool only f
 
 
 ## Commands:
-### help [commands | 'command']                                       
-* `<help>` gives basic information about the usage of the Macro Parkour Tool.
-* `<help commands>` lists all commands and their syntax.              
-* `<help 'command'>` gives a detailed description of the command.      
-* Examples: `<help>`, `<help commands>`, <help start>
-	
-### info                                                             
-* `<info>` shows information about the tool's version, author and release date.	
-	
-### list                                                     
-* `<list>` lists all macros that are currently being read and executed.
-			
-### start <'file'> ['numberOfTicks']                                           
-* `<start 'file'>` begins executing the macro file. Make sure you include just the name, not the extension.                                      
-* `<start 'file' 'numberOfTicks'>` opens the macro file after the specified amount of ticks.
-* The file needs to be in the same directory as the Macro Parkour Tool.                    
-
-### stop ['file']                                   
-* `<stop>` stops all running macros and simulated key presses.
-* `<stop 'file'>` stops interpreting the file.            
-*  Examples: `<stop>`, `<stop quad_neo>`
+Please run `help commands` in the console to get a list of available commands.
 
 
 		 
@@ -78,14 +59,19 @@ even though the latter may become a tedious task.
 On the other hand you might learn how to do jumps more easily by actually creating a macro that does the jump.
 The tool might also help find new techniques, if there are any.
 
+
 ### Q: Why is my macro inconsistent?
 A: The cause for consistencies is often lag. If Minecraft has to skip a tick, or the tool takes longer 
 than a minecraft tick to compute its own tick, the run is basically ruined. If that happens make sure 
-you reduce settings in Minecraft and close background programs. Also check the Task Manager to make sure
+you reduce settings in Minecraft and close background programs. Also, check Task Manager to make sure
 you have no other instances of the tool running.
+
+Side note: sometimes changing the in-game sensitivity does not update the options.txt file. In order for this
+change to be noticed by the tool you must manually edit the options.txt file to you desired sensitivity. Remember
+that the values are scaled between 200%. This means that 100% in game sensitivity is 0.5 in options.txt
    
 ### Q: What features are planned in the future?
-A: A `load` command so your macro is loaded yet not executed until you press F9. This prevents annoying behavior when 
+A: A `load` command so your macro is loaded, yet not executed, until you press F9. This prevents annoying behavior when 
 executing macros on the desktop. It is also planned to turn the tool into an internal mod, in order to fix
 some major issues and implement features like seeing effects of changes in your macros in game or
 skipping between ticks, so you don't have to run macros from the start each time.

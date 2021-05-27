@@ -27,12 +27,16 @@ public class CommandHelper {
 
 
             switch (command) {
+                // command [required parameter] <optional parameter> 'user text'.
                 case "help":
                     if (singleWordCommand) {
                         printMessage("Write commands into the console.");
-                        printMessage("To execute a macro type \"start <'file'>\".");
-                        printMessage("To stop all macros type either \"stop\" or press the F10 key.");
+                        printMessage("To execute a macro type \"start ['file']\".");
+                        printMessage("To stop all macros press the F10 key.");
                         printMessage("To repeat the last executed macro file press the F9 key.");
+                        printMessage("To reload options.txt and hotkey configuration press the " +
+                                             "F8 key.");
+                        printMessage("To clear the console press the F7 key");
                         printMessage("To see a list of all commands type \"help commands\".");
                         printMessage("To see a detailed description of a single command type \"help <'command'>\".");
                         printMessage(
@@ -40,44 +44,37 @@ public class CommandHelper {
                     } else {
                         if (params.length > 1) {
                             System.out.println(
-                                    "WARNING: \"help\" has only a single parameter (help [commands|'command'])");
+                                    "WARNING: \"help\" has at most a single parameter (help <commands|'command'>)");
                         }
                         switch (params[0]) {
                             case "commands":
-                                printMessage("help [commands | 'command']");
+                                printMessage("help <commands | 'command'>");
                                 printMessage("list");
-                                printMessage("start <'file'> ['numberOfTicks']");
-                                printMessage("stop ['file']");
+                                printMessage("start ['file'] <'numberOfTicks'>");
                                 printMessage("info");
+                                printMessage("set [CLEAR|RELOAD|REPLAY|STOP] ['keyCode']");
+                                printMessage("clear");
                                 break;
                             case "help":
                                 printMessage("Syntax: help [commands|'command']");
                                 printMessage(
-                                        "\"help\" gives basic information about the usage of the logic.Macro Parkour Tool.");
+                                        "\"help\" gives basic information about the usage of the Minecraft Macro " +
+                                                "Tool.");
                                 printMessage("\"help commands\" lists all commands and their syntax.");
                                 printMessage("\"help 'command'\" gives a detailed description of the command.\"");
-                                printMessage("Examples: \"help\", \"help commands\", \"help start\"");
                                 break;
                             case "list":
                                 printMessage("Syntax: list");
                                 printMessage("\"list\" lists all macros that are in the current working directory.");
                                 break;
                             case "start":
-                                printMessage("Syntax: start <'file'> ['numberOfTicks']");
-                                printMessage("\"start 'file'\" begins executing the macro file.");
+                                printMessage("Syntax: start ['file'] <'numberOfTicks'>");
+                                printMessage("\"start ['file']\" begins executing the macro file.");
                                 printMessage(
-                                        "\"start 'file' 'numberOfTicks'\" opens the macro file after the specified amount of ticks.");
+                                        "\"start ['file'] <'numberOfTicks'>\" opens the macro file after the " +
+                                                "specified amount of ticks.");
                                 printMessage(
-                                        "The file got to be in the same directory as the logic.Macro Parkour Tool.");
-                                printMessage(
-                                        "You also have to specify the file type with the corresponding filename extension.");
-                                printMessage("Examples: \"start hard_jump.txt\", \"start double_triple_neo.txt 40\"");
-                                break;
-                            case "stop":
-                                printMessage("Syntax: stop ['file']");
-                                printMessage("\"stop\" stops all running macros and simulated key presses.");
-                                printMessage("\"stop 'file'\" stops interpreting the file.");
-                                printMessage(" Examples: \"stop\", \"stop quad_neo\"");
+                                        "The file must be in the same directory as the Minecraft Macro Tool.");
                                 break;
                             case "info":
                                 printMessage("Syntax: info");
@@ -85,20 +82,19 @@ public class CommandHelper {
                                         "\"info\" shows information about the tool's version, author and release date.");
                                 break;
                             case "set":
-                                printMessage("Syntax: set [CLEAR|RELOAD|REPLAY|STOP] [keyCode]");
-                                printMessage("\"set\" rebinds the hotkey for selected actions based on the parameters" +
-                                                     " given.");
-                                printMessage("Make sure the keycode is a valid input as listed in the NativeKeyEvent " +
-                                                     "class.");
+                                printMessage("Syntax: set [CLEAR|RELOAD|REPLAY|STOP] ['keyCode']");
+                                printMessage("\"set\" rebinds the hotkey for selected action");
+                                printMessage("Make sure that the keycode is a valid input as listed in the " +
+                                                     "NativeKeyEvent class.");
                                 break;
                             case "clear":
+                                printMessage("Syntax: clear");
                                 printMessage("Clears the text output area.");
                                 break;
                             default:
                                 printError("Unknown command \"" + params[0] + "\".");
                                 break;
                         }
-
                     }
                     System.out.println();
                     break;
@@ -130,7 +126,7 @@ public class CommandHelper {
                             try {
                                 int sleepMillis = Integer.parseInt(params[1]) * 50;
                                 Thread.sleep(sleepMillis);
-                                Main.millis += sleepMillis;
+                                Main.milliseconds += sleepMillis;
                                 new Macro(params[0]);
                             } catch (IllegalArgumentException e2) {
                                 printError("numberOfTicks parameter may only be a full, positive number.");
@@ -140,19 +136,7 @@ public class CommandHelper {
                         } else {
                             new Macro(params[0]);
                         }
-
                     }
-
-                    break;
-                case "stop":
-                    if (singleWordCommand) {
-                        Macro.closeMacros();
-                    } else {
-                        Macro.currentMacros.removeIf((Macro macro) ->
-                                                             macro.getFile().equals(
-                                                                     line.substring(line.indexOf(" ") + 1)));
-                    }
-
                     break;
                 case "info":
                     if (!singleWordCommand) {
@@ -165,7 +149,6 @@ public class CommandHelper {
                         System.out.println();
                     }
                     break;
-                    //TODO add help for clear and set hotkey
                 case "clear":
                     if(!singleWordCommand){
                         printWarning("\"clear\" has no parameters: (clear)");
@@ -175,45 +158,43 @@ public class CommandHelper {
                     break;
                 case "set":
                     if(singleWordCommand){
-                        printWarning("\"set hotkey\" has two parameters: (set |CLEAR, READ, RELOAD, CLOSE| |keycode|");
+                        printWarning("\"set hotkey\" must have two parameters: (<set> |CLEAR, RELOAD, REPLAY, STOP| " +
+                                             "|keycode|");
                     } else {
                         try{
-                            //TODO make sure ints are unique
                             if (params.length == 2){
                                 switch (params[0]) {
                                     case "CLEAR":
                                         if(GlobalKeyListener.isValidEntry(0, Integer.parseInt(params[1]))) {
-                                            GlobalKeyListener.setHotKey(0, Integer.parseInt(params[1]));
-                                            printMessage("Set Clear hotkey to: " + NativeKeyEvent.getKeyText(
+                                            GlobalKeyListener.writeHotKey("CLEAR", params[1]);
+                                            printMessage("Set clear hotkey to: " + NativeKeyEvent.getKeyText(
                                                     Integer.parseInt(params[1])));
                                         }
                                         break;
                                     case "RELOAD":
                                         if(GlobalKeyListener.isValidEntry(1, Integer.parseInt(params[1]))) {
-                                            GlobalKeyListener.setHotKey(1, Integer.parseInt(params[1]));
-                                            printMessage("Set execute previous macro hotkey to: " + NativeKeyEvent.getKeyText(
+                                            GlobalKeyListener.writeHotKey("RELOAD", params[1]);
+                                            printMessage("Set reload settings hotkey to: " + NativeKeyEvent.getKeyText(
                                                     Integer.parseInt(params[1])));
                                         }
-
-
                                         break;
                                     case "REPLAY":
                                         if(GlobalKeyListener.isValidEntry(2, Integer.parseInt(params[1]))){
-                                            GlobalKeyListener.setHotKey(2, Integer.parseInt(params[1]));
-                                            printMessage("Set Clear hotkey to: " + NativeKeyEvent.getKeyText(
+                                            GlobalKeyListener.writeHotKey("REPLAY", params[1]);
+                                            printMessage("Set execute previous macro hotkey to: " + NativeKeyEvent.getKeyText(
                                                     Integer.parseInt(params[1])));
                                         }
-
                                         break;
                                     case "STOP":
                                         if(GlobalKeyListener.isValidEntry(3, Integer.parseInt(params[1]))) {
-                                            GlobalKeyListener.setHotKey(3, Integer.parseInt(params[1]));
-                                            printMessage("Set stop hotkey to: " + NativeKeyEvent.getKeyText(
+                                            GlobalKeyListener.writeHotKey("STOP", params[1]);
+                                            printMessage("Set stop current macro hotkey to: " + NativeKeyEvent.getKeyText(
                                                     Integer.parseInt(params[1])));
                                         }
                                         break;
                                     default:
-                                        printError("Invalid hotkey parameter");
+                                        printError("Invalid hotkey parameter. Please type <help> <set> for a list of");
+                                        printError("Valid parameters.");
                                         break;
                                 }
                             } else {
@@ -230,21 +211,18 @@ public class CommandHelper {
                     printError("Unknown command \"" + command + "\".");
                     break;
             }
-
-
         }
-
     }
 
-    static void printMessage(String m) {
+    public static void printMessage(String m) {
         System.out.println("MESSAGE: " + m);
     }
 
-    static void printWarning(String m) {
+    public static void printWarning(String m) {
         System.out.println("WARNING: " + m);
     }
 
-    static void printError(String m) {
+    public static void printError(String m) {
         System.out.println("ERROR: " + m);
     }
 

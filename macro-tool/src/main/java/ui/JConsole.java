@@ -25,8 +25,9 @@ import ext.TextAreaOutputStream;
 public class JConsole extends JFrame {
 
     private final JTextField textField;
-    private TextAreaOutputStream textOutput;
+    private final TextAreaOutputStream textOutput;
 
+    //TODO refactor this into sub methods
     public JConsole(String title) {
         super(title);
         try {

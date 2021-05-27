@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class Macro {
 
-    final static String WORKING_DIR = System.getProperty("user.dir") + File.separator;
+    public final static String WORKING_DIR = System.getProperty("user.dir") + File.separator;
 
     public static Vector<Macro> currentMacros = new Vector<>();
 
