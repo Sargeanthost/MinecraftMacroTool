@@ -35,28 +35,34 @@ public class JConsole extends JFrame {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e1) {
             e1.printStackTrace();
         }
+        JPanel contentPane = new JPanel();
+        GridBagLayout gbl_contentPane = new GridBagLayout();
+        JScrollPane scrollPane = new JScrollPane();
+        GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+        JTextArea textArea = new JTextArea();
+        textField = new JTextField();
+        GridBagConstraints gbc_textField = new GridBagConstraints();
+        textOutput = new TextAreaOutputStream(textArea);
+        PrintStream ps = new PrintStream(textOutput);
+
         setForeground(Color.BLACK);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 860, 480);
-        JPanel contentPane = new JPanel();
+
         contentPane.setBackground(Color.DARK_GRAY);
         contentPane.setBorder(null);
         setContentPane(contentPane);
-        GridBagLayout gbl_contentPane = new GridBagLayout();
         gbl_contentPane.columnWidths = new int[]{0, 0};
         gbl_contentPane.rowHeights = new int[]{0, 0, 0};
         gbl_contentPane.columnWeights = new double[]{1.0, Double.MIN_VALUE};
         gbl_contentPane.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
         contentPane.setLayout(gbl_contentPane);
 
-        JScrollPane scrollPane = new JScrollPane();
-        GridBagConstraints gbc_scrollPane = new GridBagConstraints();
         gbc_scrollPane.fill = GridBagConstraints.BOTH;
         gbc_scrollPane.gridx = 0;
         gbc_scrollPane.gridy = 0;
         contentPane.add(scrollPane, gbc_scrollPane);
 
-        JTextArea textArea = new JTextArea();
         scrollPane.setViewportView(textArea);
         textArea.setForeground(Color.WHITE);
         textArea.setFont(new Font("Consolas", Font.PLAIN, 14));
@@ -64,7 +70,6 @@ public class JConsole extends JFrame {
         textArea.setBackground(Color.BLACK);
         textArea.setFocusable(false);
 
-        textField = new JTextField();
         textField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -77,33 +82,16 @@ public class JConsole extends JFrame {
         textField.setForeground(Color.WHITE);
         textField.setFont(new Font("Consolas", Font.PLAIN, 14));
         textField.setBackground(Color.BLACK);
-        GridBagConstraints gbc_textField = new GridBagConstraints();
+        textField.requestFocusInWindow();
+        textField.getCaret().setVisible(true);
+        textField.setCaretColor(Color.WHITE);
         gbc_textField.fill = GridBagConstraints.BOTH;
         gbc_textField.gridx = 0;
         gbc_textField.gridy = 1;
         contentPane.add(textField, gbc_textField);
-        textOutput = new TextAreaOutputStream(textArea);
-        PrintStream ps = new PrintStream(textOutput);
-        textField.requestFocusInWindow();
-        textField.getCaret().setVisible(true);
-        textField.setCaretColor(Color.WHITE);
+
         System.setOut(ps);
         System.setErr(ps);
-    }
-
-    /**
-     * Make a call to close the JFrame.
-     * Only use when an error is raised in which the program can't recover from.
-     * @param timeMs The time in milliseconds for the program to freeze; gives time to read errors.
-     */
-    public void closeFrame(int timeMs) {
-        System.out.println("Closing in " + timeMs / 1000 + " seconds...");
-        try {
-            Thread.sleep(timeMs);
-        } catch (InterruptedException e) {
-            //just close
-        }
-        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }
 
     public TextAreaOutputStream getTextOutput() {
@@ -115,8 +103,7 @@ public class JConsole extends JFrame {
             try {
                 JConsole frame = new JConsole(Main.versionName);
                 frame.setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception ignored) {
             }
         });
     }

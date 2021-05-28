@@ -68,10 +68,9 @@ you have no other instances of the tool running.
 
 Side note: sometimes changing the in-game sensitivity does not update the options.txt file. In order for this
 change to be noticed by the tool you must manually edit the options.txt file to you desired sensitivity. Remember
-that the values are scaled between 200%. This means that 100% in game sensitivity is 0.5 in options.txt
+that the values are scaled between 200%. This means that 100% in game sensitivity is 0.5 in options.txt.
    
 ### Q: What features are planned in the future?
-A: A `load` command so your macro is loaded, yet not executed, until you press F9. This prevents annoying behavior when 
-executing macros on the desktop. It is also planned to turn the tool into an internal mod, in order to fix
+A: It is planned to turn the tool into an internal mod, in order to fix
 some major issues and implement features like seeing effects of changes in your macros in game or
 skipping between ticks, so you don't have to run macros from the start each time.

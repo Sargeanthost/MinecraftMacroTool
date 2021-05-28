@@ -42,11 +42,9 @@ public class GlobalKeyListener implements NativeKeyListener {
     }
 
     public void nativeKeyReleased(NativeKeyEvent e) {
-        //System.out.println("Key Released: " + NativeKeyEvent.getKeyText(e.getKeyCode()));
     }
 
     public void nativeKeyTyped(NativeKeyEvent e) {
-        //System.out.println("Key Typed: " + NativeKeyEvent.getKeyText(e.getKeyCode()));
     }
 
     /**
@@ -78,6 +76,11 @@ public class GlobalKeyListener implements NativeKeyListener {
         }
     }
 
+    /**
+     * Writes to the hotkeys.txt file with the updated hotkey:keycode pair.
+     * @param hotKeyToMatch the hotkey to update
+     * @param keyCodeToWrite the keycode to update the specified hotkey
+     */
     public static void writeHotKey(String hotKeyToMatch, String keyCodeToWrite){
         List<String> newLines = new ArrayList<>();
         try {
@@ -95,7 +98,7 @@ public class GlobalKeyListener implements NativeKeyListener {
             e.printStackTrace();
         } catch (SecurityException e){
             CommandHelper.printError("The file could not be written to. Please check that you have");
-            CommandHelper.printError("Sufficient permission.");
+            CommandHelper.printError("Sufficient file writing permission.");
         }
     }
 

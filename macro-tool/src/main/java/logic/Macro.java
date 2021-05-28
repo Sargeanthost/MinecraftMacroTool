@@ -42,7 +42,6 @@ public class Macro {
         this.file = name + ".txt";
         currentMacros.add(this);
         allOutputsClosed = false;
-        //currentMacros.forEach((logic.Macro macro) -> System.out.println(macro.getFilename()));
 
         try {
             this.userInput = new BufferedReader(new FileReader(WORKING_DIR + this.getFile()));

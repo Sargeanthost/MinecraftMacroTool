@@ -226,7 +226,7 @@ public class Config {
         } catch (FileNotFoundException e) {
             System.out.println(
                     "The options.txt file could not be found in the .minecraft directory.");
-            Main.console.closeFrame(2000);
+            System.exit(1);
 
         } catch (IOException e) {
             e.printStackTrace();

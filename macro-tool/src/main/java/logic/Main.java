@@ -13,8 +13,8 @@ import ui.JConsole;
 
 public abstract class Main {
 
-    static public String versionName = "Macro Parkour Tool 0.2.3";
-    static public String versionDate = "2021-05-27";
+    static public String versionName = "Macro Parkour Tool 0.2.4";
+    static public String versionDate = "2021-05-28";
 
     static long milliseconds;
     static String[] args;
@@ -41,7 +41,6 @@ public abstract class Main {
         sleepTillTick();
         //noinspection InfiniteLoopStatement
         while (true) {
-//TODO runs twice when running start command
             commandHelper.listen();
             if (Macro.currentMacros.size() != 0) {
                 try {

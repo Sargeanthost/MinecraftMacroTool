@@ -6,7 +6,7 @@
 
     <groupId>kideneb</groupId>
     <artifactId>macro-tool</artifactId>
-    <version>0.2.1</version>
+    <version>0.2.4</version>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>

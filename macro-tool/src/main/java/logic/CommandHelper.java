@@ -14,8 +14,8 @@ public class CommandHelper {
             String line = input;
             input = "";
             String command;
-            boolean singleWordCommand;
             String[] params = line.substring(line.indexOf(" ") + 1).split(" ");
+            boolean singleWordCommand;
 
             if (line.contains(" ")) {
                 command = line.substring(0, line.indexOf(" "));
@@ -40,7 +40,8 @@ public class CommandHelper {
                         printMessage("To see a list of all commands type \"help commands\".");
                         printMessage("To see a detailed description of a single command type \"help <'command'>\".");
                         printMessage(
-                                "For more information on how to create macros and a FAQ read the README.txt in the download folder.");
+                                "For more information on how to create macros and a FAQ read the README.txt on github" +
+                                        ".");
                     } else {
                         if (params.length > 1) {
                             System.out.println(
@@ -56,12 +57,12 @@ public class CommandHelper {
                                 printMessage("clear");
                                 break;
                             case "help":
-                                printMessage("Syntax: help [commands|'command']");
+                                printMessage("Syntax: help <commands|'command'>");
                                 printMessage(
                                         "\"help\" gives basic information about the usage of the Minecraft Macro " +
                                                 "Tool.");
                                 printMessage("\"help commands\" lists all commands and their syntax.");
-                                printMessage("\"help 'command'\" gives a detailed description of the command.\"");
+                                printMessage("\"help <'command'>\" gives a detailed description of the command.\"");
                                 break;
                             case "list":
                                 printMessage("Syntax: list");
@@ -119,7 +120,7 @@ public class CommandHelper {
                     break;
                 case "start":
                     if (singleWordCommand) {
-                        printError("\"start\" needs filename parameter (start <'file'> ['numberOfTicks']).");
+                        printError("\"start\" needs filename parameter (start ['file'] <'numberOfTicks'>).");
                     } else {
                         Macro.prevMacro = params[0];
                         if (params.length > 1) {
@@ -134,7 +135,7 @@ public class CommandHelper {
                                 e.printStackTrace();
                             }
                         } else {
-                            new Macro(params[0]);
+                            Macro.prevMacro = params[0];
                         }
                     }
                     break;
